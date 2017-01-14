@@ -39,8 +39,7 @@ namespace BricksPlayer
             Field temp = Board.MyBoard[block[0], block[1]];
             int[] nowy = whichIsFree(temp, block, new int[] { -1, -1 }); // dwie pierwsze wsp
 
-            if (nowy == null)
-                return false;
+          
 
             Field temp2 = Board.MyBoard[nowy[0], nowy[1]];
             

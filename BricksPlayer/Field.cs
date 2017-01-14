@@ -30,6 +30,8 @@ namespace BricksPlayer
 
         public Boolean isBlockable()
         {
+            if (this.isOccupied)
+                return false;
             int k = 0;
             if (this.isBottomFree)
                 k++;

@@ -12,10 +12,9 @@ namespace BricksPlayer
         public static Field[,] MyBoard { get; set; }
         public static List<int[]> blockable { get; set; }
         public static int numberOfFreeFields { get; set; }
-
         public static int[] lastMove { get; set; }
-
         public static int Middle { get; set; }
+
 
         public static void newBoard(int size)
         {
@@ -127,6 +126,11 @@ namespace BricksPlayer
             }
         }
 
+        /// <summary>
+        /// Sprawdzam, czy pole jest blokowalne
+        /// </summary>
+        /// <param name="field"></param>
+        /// <returns></returns>
         private static Boolean update_list(Field field)
         {
             if (field.isBlockable())
@@ -137,23 +141,22 @@ namespace BricksPlayer
                     return false;
                 }
                 return true;
-            }         
-
+            }        
             return false;
-
                     
-        } 
-
+        }  
+        /// <summary>
+        /// Odświeżam, liste blokowalnych pól
+        /// </summary>
         public static void blockableRefresh()
         {
-            for (int i = 0; i<  blockable.Count; i++)
+            for (int i = 0; i <  blockable.Count; i++)
             {
                 if (!MyBoard[blockable[i][0], blockable[i][1]].isBlockable())
                 {
                     blockable.RemoveAt(i);
                     i--;
-                }
-                    
+                }                    
             }
         }
 
@@ -162,8 +165,8 @@ namespace BricksPlayer
 
             try
             {
-                update(moves);
                 blockableRefresh();
+                update(moves);                
                 lastMove = moves;
                 MyBoard[moves[0], moves[1]].OccupyField();
                 numberOfFreeFields--;

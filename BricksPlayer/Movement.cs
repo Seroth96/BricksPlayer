@@ -33,6 +33,7 @@ namespace BricksPlayer
 
         private Boolean blockField()
         {
+            
             int[] block = Board.blockable[Board.blockable.Count - 1];//najnowszy blokowalny
             Board.blockable.RemoveAt(Board.blockable.Count - 1);//usuwam go
 
@@ -104,15 +105,17 @@ namespace BricksPlayer
             Board.Size - Board.lastMove[2] - 1,
             Board.Size - Board.lastMove[3] - 1  };
 
+
+
            if(move[0] == Board.Middle && move[1] == Board.Middle)
             {
-                this.isFirst = false;
+                this.isFirst = true;            
                 return playingAsFirst();
             }
 
             if (move[2] == Board.Middle && move[3] == Board.Middle)
             {
-                this.isFirst = false;
+                this.isFirst = true;
                 return playingAsFirst();
             }
 
@@ -124,19 +127,19 @@ namespace BricksPlayer
         private int[] playingAsFirst()
         {
 
-            if(Board.numberOfFreeFields < 20)
-            {
+            
                 if((Board.numberOfFreeFields / 2) % 2 == 0)
                 {
+                    Board.blockableRefresh();
                     if (Board.blockable.Count > 0)
                     {
                         if(blockField())
                             return nextMove;
                     }
                 }
-            }
             
-            int moore = 1;            
+            
+            int moore = 0;            
 
             for (int i = moore; i <= Board.Middle; i++)
             {
@@ -177,7 +180,7 @@ namespace BricksPlayer
         private Field searchForFreeField(int moore)
         {
             
-            for (int i = -moore; i < moore; i++)
+            for (int i = -moore; i <= moore; i++)
             {
                 if(!Board.MyBoard[Board.Middle - moore, Board.Middle + i].isOccupied)//gora
                 {
